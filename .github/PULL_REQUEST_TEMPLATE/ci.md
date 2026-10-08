@@ -45,13 +45,12 @@ Closes #
 
 ## Test plan
 
-<!-- The checks this repository's CI runs: `.github/workflows/ci.yml`. -->
-<!-- Run `uv sync --locked` first; every command below lives in that workflow. -->
+<!-- REPO OWNER: replace with the checks this repository's CI runs. -->
 
-- [ ] `uv run yamllint .`
-- [ ] `uv run mdlint check . .github`
-- [ ] `uv run actionlint .github/workflows/*.yml` (workflow changes only)
-- [ ] `uv run yamlfix --check -i '*.yml' -e '.cache/**' -e '.github/standards.local.example.yml' .`
+- [ ] `TODO: lint and formatting`
+- [ ] `TODO: unit tests`
+- [ ] `TODO: build`
+- [ ] `TODO: type check, if the repository has one`
 - [ ] Manually exercised the change end to end
 
 ## Contributor checklist

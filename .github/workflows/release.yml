@@ -1,6 +1,20 @@
 ---
 name: release-please
 
+# Template: technology-agnostic on purpose. The skeleton below is complete and
+# the invariants are deliberate — do not weaken them when filling the step:
+#
+# - `cancel-in-progress: false`: a new push must wait for a release in flight,
+#   not interrupt it halfway.
+# - A dedicated PAT (`AILURA_RELEASE_TOKEN`), not the workflow's `GITHUB_TOKEN`:
+#   the token's holder becomes the author of release commits. Keep it separate
+#   from `AILURA_PR_COMPLIANCE_TOKEN`, which writes the policy status comment.
+# - Release pull requests are exempt from the policy gate by head ref
+#   (`release-please--branches--*`), never by actor. See policy.yml.
+#
+# REPO OWNER: add the release step (see ailuracollective/standards
+# docs/releases.md) once this repository has something to release.
+
 "on":
   push:
     branches: [main]
@@ -8,7 +22,6 @@ permissions: {}
 
 concurrency:
   group: release-please-${{ github.workflow }}-${{ github.ref }}
-  # A new push must wait for a release in flight, not interrupt it halfway.
   cancel-in-progress: false
 
 jobs:
@@ -20,10 +33,9 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      # The PAT sets the commit author, since release-please has no author setting.
-      # See ailuracollective/standards docs/releases.md.
-      - uses: googleapis/release-please-action@v5
-        with:
-          config-file: release-please-config.json
-          manifest-file: .release-please-manifest.json
-          token: ${{ secrets.AILURA_RELEASE_TOKEN }}
+      # REPO OWNER: replace with the release step
+      # (see ailuracollective/standards docs/releases.md) once this repository
+      # has something to release. The step is a visible placeholder on purpose:
+      # an empty `steps` fails workflow validation.
+      - name: Release
+        run: echo "TODO: the release automation step"

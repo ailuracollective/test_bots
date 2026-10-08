@@ -96,17 +96,20 @@ that checks both.
 
 Shape:
 
-- Language/tooling: Python `>=3.12` managed by [uv](https://docs.astral.sh/uv/);
-  `pyproject.toml` + `uv.lock` pin the lint tools only (`package = false`, nothing
-  is built or published).
-- `.github/workflows/ci.yml` — lint and schema checks on every non-draft pull
-  request.
-- `.github/workflows/policy.yml` — the contribution gate: branch name, pull
-  request title/body, and issue triage. It never executes code from the pull
-  request head.
-- `.github/workflows/release.yml` — release-please on pushes to `main`; needs the
-  `AILURA_RELEASE_TOKEN` secret. The policy gate's status comments need
-  `AILURA_PR_COMPLIANCE_TOKEN`.
+- **No language or toolchain is fixed**: the template is technology-agnostic by
+  design. The CI/CD workflows below are skeletons; the stack that completes them
+  (language, package manager, commands) is this repository's choice, not the
+  template's.
+- `.github/workflows/ci.yml` — template: the job skeleton (permissions,
+  concurrency, checkout, timeouts) complete, the check steps left for the
+  repository's own tooling. It runs **no checks** until completed.
+- `.github/workflows/policy.yml` — the contribution gate, complete and intact:
+  branch name, pull request title/body, and issue triage. It never executes code
+  from the pull request head. Its status comments need the
+  `AILURA_PR_COMPLIANCE_TOKEN` secret.
+- `.github/workflows/release.yml` — template: the release-aware skeleton
+  (triggers, concurrency, a write-granted job) with a placeholder step. It needs
+  `AILURA_RELEASE_TOKEN` once completed.
 - `.github/` (the five standard artifacts) and `.agents/` — copied from
   `ailuracollective/standards` and maintained by hand; there is no sync
   mechanism.
@@ -118,53 +121,30 @@ When bot or automation code lands, record its entry points and layout here.
 None. This repository follows the organisation standards as written — no
 departure has been taken, so there is nothing to record here.
 
-Two adoption facts, not departures: the `## Test plan` block of all thirteen
-pull request templates carries this repository's real commands (see § Testing and
-validation), and the repository is currently an exact copy of the standard, so
+Two adoption facts, not departures: the `## Test plan` block of the pull request
+templates keeps the standard's `TODO` placeholders, because the commands belong
+to the stack this template deliberately does not choose (the standard's adoption
+step: replace them in the pull request that wires up this repository's CI), and
+the repository is currently an exact copy of the standard, so
 `.github/standards.local.yml` is absent by choice.
 
 ## Development instructions
 
-From a fresh clone:
+There is nothing to install, build, or run yet. This is deliberate: the template
+is technology-agnostic, so `ci.yml` and `release.yml` are skeletons and the
+choice of language, package manager and commands belongs to whoever completes
+them — not to this file.
 
-```sh
-# install uv if it is missing (https://docs.astral.sh/uv/getting-started/installation/)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# install the pinned lint toolchain; uv fetches a matching Python if needed
-uv sync --locked
-```
-
-There is no build, run, or server step: the repository contains no application
-code yet. When it does, the commands to install, run, and develop go here,
-exactly as they run.
+When a stack lands, this section gains its fresh-clone-to-running commands,
+exactly as they run, and § Testing and validation gains the checks.
 
 ## Testing and validation
 
-The source of truth is `.github/workflows/ci.yml`; these are its commands, and
-they must run green locally before a pull request is opened:
+`ci.yml` is a template and runs **no checks** until the repository's CI steps are
+written. Until then, a pull request claims no check that does not run.
 
-```sh
-uv sync --locked
-
-uv run yamllint .
-uv run mdlint check . .github
-uv run check-jsonschema --builtin-schema vendor.github-workflows .github/workflows/*.yml
-uv run check-jsonschema --builtin-schema vendor.github-issue-config .github/ISSUE_TEMPLATE/config.yml
-uv run check-jsonschema --schemafile https://raw.githubusercontent.com/googleapis/release-please/v17.11.2/schemas/config.json release-please-config.json
-uv run actionlint .github/workflows/*.yml
-uv run yamlfix --check -i '*.yml' -e '.cache/**' -e '.github/standards.local.example.yml' .
-uv run mdlint check --select MD060 . .github
-```
-
-A failure is a non-zero exit with the file and line named. `uv run mdlint check
---select MD060` is the table-alignment check; it is also the last step of CI.
-
-A green linter is **not** sufficient verification. The invariants that matter
-cross file boundaries: issue type ↔ issue template, template labels ↔
-`labels.yml`, pull request title type ↔ pull request template, `type-labels` in
-`policy.yml` ↔ labels that exist on the remote. Check the cross-file ones by
-hand:
+What can be verified today is cross-file and remote, and these commands run from
+a fresh clone with nothing installed beyond `gh` and `git`:
 
 ```sh
 # every label named by a template or workflow must exist on the remote
@@ -176,6 +156,13 @@ grep -A3 'type-labels:\|approved-label:' .github/workflows/policy.yml
 # the vocabulary the templates name
 grep -rhoE 'type/[a-z-]+|status/[a-z-]+' .github/ISSUE_TEMPLATE .github/PULL_REQUEST_TEMPLATE | sort -u
 ```
+
+Even a passing linter would not be sufficient verification: the invariants that
+matter cross file boundaries — issue type ↔ issue template, template labels ↔
+`labels.yml`, pull request title type ↔ pull request template, `type-labels` in
+`policy.yml` ↔ labels that exist on the remote. When `ci.yml` is completed,
+record its real commands here and in the `## Test plan` block of every pull
+request template.
 
 ## Git and pull requests
 
@@ -193,8 +180,8 @@ Repository specifics:
   characters, and the body template is resolved from the title. Release-please
   pull requests (head ref `release-please--branches--*`) are exempt by design.
 - Agents open pull requests as drafts.
-- The repository has no CI beyond `.github/workflows/ci.yml`; do not claim a
-  check that workflow does not run.
+- The repository has no CI checks yet: `ci.yml` is a template, so do not claim a
+  check that does not run.
 
 ## Documentation
 
