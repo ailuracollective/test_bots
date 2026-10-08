@@ -1,0 +1,33 @@
+---
+name: CI
+
+# Template: technology-agnostic on purpose. The skeleton below (permissions,
+# concurrency, checkout, timeouts) is complete; the check steps are not, because
+# the commands belong to the stack this repository chooses — not to the template.
+#
+# REPO OWNER: replace the placeholder step with this repository's own checks,
+# one step per check, each with `if: ${{ !cancelled() }}` so a single run reports
+# every failure instead of stopping at the first. Never name a command the
+# repository cannot run.
+
+"on":
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint and format
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
