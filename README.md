@@ -77,13 +77,24 @@ git push origin main
 # → Se crea el tag v0.2.0 y la release con changelog
 ```
 
+## Módulos
+
+| Módulo | Descripción |
+|--------|-------------|
+| `test_bots.config` | Configuración de bots con validación |
+| `test_bots.runner` | Ejecución de bots (simple y concurrente) |
+| `test_bots.utils` | Utilidades de logging y validación de nombres |
+
 ## Estructura
 
 ```
 .
 ├── .github/workflows/release-please.yml  # Workflow de release-please
 ├── src/test_bots/                         # Código fuente
-│   └── __init__.py
+│   ├── __init__.py
+│   ├── config.py
+│   ├── runner.py
+│   └── utils.py
 ├── pyproject.toml                         # Configuración del proyecto (uv + hatchling)
 ├── release-please-config.json             # Config de release-please
 └── .release-please-manifest.json          # Versión actual (se actualiza automáticamente)
