@@ -1,6 +1,6 @@
 [project]
 name = "test-bots"
-version = "0.0.0"
+version = "0.1.0"
 description = "Proyecto de pruebas con Python + uv + release-please"
 readme = "README.md"
 authors = [
