@@ -14,3 +14,12 @@ async def run_bot(config: BotConfig) -> None:
     except asyncio.TimeoutError:
         print(f"Bot {config.name} timed out after {config.timeout}s")
         raise
+    except Exception as e:
+        print(f"Bot {config.name} failed: {e}")
+        raise
+
+
+async def run_bots(configs: list[BotConfig]) -> None:
+    """Run multiple bots concurrently."""
+    tasks = [run_bot(config) for config in configs]
+    await asyncio.gather(*tasks, return_exceptions=True)
