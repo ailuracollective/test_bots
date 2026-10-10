@@ -1,21 +1,24 @@
 """Bot runner module."""
 
 import asyncio
+import logging
 
 from test_bots.config import BotConfig
+
+logger = logging.getLogger(__name__)
 
 
 async def run_bot(config: BotConfig) -> None:
     """Run a bot with the given configuration."""
-    print(f"Running bot: {config.name}")
+    logger.info("Running bot: %s", config.name)
     try:
         await asyncio.sleep(0.1)
-        print(f"Bot {config.name} completed")
-    except asyncio.TimeoutError:
-        print(f"Bot {config.name} timed out after {config.timeout}s")
+        logger.info("Bot %s completed", config.name)
+    except TimeoutError:
+        logger.exception("Bot %s timed out after %ss", config.name, config.timeout)
         raise
-    except Exception as e:
-        print(f"Bot {config.name} failed: {e}")
+    except Exception:
+        logger.exception("Bot %s failed", config.name)
         raise
 
 

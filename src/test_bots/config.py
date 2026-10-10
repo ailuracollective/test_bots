@@ -1,6 +1,7 @@
 """Bot configuration module."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from dataclasses import field
 
 
 @dataclass
@@ -15,6 +16,8 @@ class BotConfig:
     def __post_init__(self) -> None:
         """Validate configuration after initialization."""
         if self.timeout <= 0:
-            raise ValueError("timeout must be positive")
+            msg = "timeout must be positive"
+            raise ValueError(msg)
         if self.retries < 0:
-            raise ValueError("retries cannot be negative")
+            msg = "retries cannot be negative"
+            raise ValueError(msg)
