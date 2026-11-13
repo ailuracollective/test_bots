@@ -24,3 +24,15 @@ def validate_name(name: str) -> bool:
 def sanitize_name(name: str) -> str:
     """Sanitize a bot name by removing invalid characters."""
     return re.sub(r"[^a-zA-Z0-9_-]", "", name.strip())
+
+
+def farewell(name: str) -> str:
+    """Return a farewell message for the given name.
+
+    Args:
+        name: The name to include in the farewell message.
+
+    Returns:
+        A farewell string of the form "Goodbye, {name}!".
+    """
+    return f"Goodbye, {name}!"
