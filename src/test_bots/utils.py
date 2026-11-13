@@ -24,3 +24,15 @@ def validate_name(name: str) -> bool:
 def sanitize_name(name: str) -> str:
     """Sanitize a bot name by removing invalid characters."""
     return re.sub(r"[^a-zA-Z0-9_-]", "", name.strip())
+
+
+def yo(name: str) -> str:
+    """Return a yo message for the given name.
+
+    Args:
+        name: The name to greet.
+
+    Returns:
+        A yo string of the form ``Yo, {name}!``.
+    """
+    return f"Yo, {name}!"
