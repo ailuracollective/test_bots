@@ -6,6 +6,11 @@ import re
 logger = logging.getLogger(__name__)
 
 
+def ping() -> str:
+    """Return a pong response."""
+    return "pong"
+
+
 def farewell(name: str) -> str:
     """Return a goodbye message for a name."""
     return f"Goodbye, {name}!"
