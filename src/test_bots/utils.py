@@ -6,6 +6,11 @@ import re
 logger = logging.getLogger(__name__)
 
 
+def farewell(name: str) -> str:
+    """Return a goodbye message for a name."""
+    return f"Goodbye, {name}!"
+
+
 def setup_logging(level: int = logging.INFO) -> None:
     """Configure logging for the application."""
     logging.basicConfig(
