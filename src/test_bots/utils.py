@@ -11,6 +11,11 @@ def ping() -> str:
     return "pong"
 
 
+def echo(text: str) -> str:
+    """Return the same text."""
+    return text
+
+
 def farewell(name: str) -> str:
     """Return a goodbye message for a name."""
     return f"Goodbye, {name}!"
