@@ -95,6 +95,7 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["D", "ANN", "S"]
+"src/test_bots/utils.py" = ["D"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
