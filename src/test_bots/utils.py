@@ -27,12 +27,5 @@ def sanitize_name(name: str) -> str:
 
 
 def yo(name: str) -> str:
-    """Return a yo message for the given name.
-
-    Args:
-        name: The name to greet.
-
-    Returns:
-        A yo string of the form ``Yo, {name}!``.
-    """
+    """Return a yo message for the given name."""
     return f"Yo, {name}!"
