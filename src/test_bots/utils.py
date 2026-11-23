@@ -34,3 +34,9 @@ def validate_name(name: str) -> bool:
 def sanitize_name(name: str) -> str:
     """Sanitize a bot name by removing invalid characters."""
     return re.sub(r"[^a-zA-Z0-9_-]", "", name.strip())
+
+
+def sup(name: str) -> str:
+    """Return a sup message for a name."""
+    # Build the greeting using the provided name
+    return f"Sup, {name}!"
