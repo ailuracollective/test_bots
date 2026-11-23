@@ -99,3 +99,5 @@ git push origin main
 ├── release-please-config.json             # Config de release-please
 └── .release-please-manifest.json          # Versión actual (se actualiza automáticamente)
 ```
+
+factory smoke test ok
