@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.1](https://github.com/ailuracollective/test_bots/compare/v0.1.0...v0.1.1) (2026-11-24)
+
+
+### Features
+
+* add farewell helper ([8f5a0cd](https://github.com/ailuracollective/test_bots/commit/8f5a0cdd7217f0131d29749fe4333144d3c20499))
+* add farewell helper ([442af51](https://github.com/ailuracollective/test_bots/commit/442af51a6931eaf6dcc981e086e59e93d7e8997d))
+* **utils:** add ping helper ([e0c822c](https://github.com/ailuracollective/test_bots/commit/e0c822cfb944148486e59b841491f112530943ce))
+* **utils:** add ping helper ([b1f4012](https://github.com/ailuracollective/test_bots/commit/b1f4012be4dca3390c03ce87f412fa47cbbf6075))
+
 ## 0.1.0 (2026-10-10)
 
 
