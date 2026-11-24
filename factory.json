@@ -1,4 +1,7 @@
 {
+  "labels": {
+    "prefix": "ai/"
+  },
   "mentions": {
     "enabled": true,
     "usernames_extra": ["AiluraCheetah"]
