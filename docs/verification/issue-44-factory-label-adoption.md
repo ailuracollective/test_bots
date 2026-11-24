@@ -157,3 +157,15 @@ Do not claim successful repository checks or close issue #44 while required chec
 ## Sensitive data
 
 No tokens, credentials, or private secrets included. Current-state observations in this audit were read-only; no GitHub labels or issues were changed.
+
+## Issue #45 fixture closure
+
+- Issue: https://github.com/ailuracollective/test_bots/issues/45
+- Title: `test: factory label adoption verification fixture 1`
+- Purpose: dedicated test issue for Factory execution label adoption verification (issue #44); safe to close after verification.
+- Evidence of use as migration verification fixture:
+  - PR #48 (`test: verify factory execution label adoption`, merged 2026-11-24T04:34:44Z) recorded issue #45 as a dedicated fixture in the custom prefix and migration scenario.
+  - PR #48 verification records #45 as migrated `ai/queued` -> `factory/queued` during the authorized migration exercise, with assignment verified after migration.
+  - Current GitHub state at closure check (2026-11-24): issue #45 is OPEN with labels `type/task`, `status/ready`, `factory/queued`; this matches its role as the queued-state fixture retained for evidence.
+- Acceptance criterion satisfied: used as migration verification fixture and evidence recorded in PR #48 and this document.
+- Closure: this PR closes #45 after recording verification evidence. Remote `factory/*` label cleanup remains subject to explicit maintainer authorization, as noted in PR #48.
