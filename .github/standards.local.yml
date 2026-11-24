@@ -1,0 +1,7 @@
+---
+extends: "ailuracollective/standards@6df6771969b7375a2afe12de9fcdfc4c096df38"
+
+input-overrides:
+  - input: "enable-status-comment"
+    value: "false"
+    reason: "No repository-specific comment token and verified comment identity are configured."

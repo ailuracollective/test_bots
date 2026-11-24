@@ -89,7 +89,7 @@ git push origin main
 
 ```
 .
-├── .github/workflows/release-please.yml  # Workflow de release-please
+├── .github/workflows/release-please.yml # Workflow de release-please
 ├── src/test_bots/                         # Código fuente
 │   ├── __init__.py
 │   ├── config.py

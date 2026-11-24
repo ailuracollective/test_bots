@@ -7,7 +7,9 @@ authors = [
     { name = "Pablo Santiago Guerra", email = "61328784+SiddharthaGF@users.noreply.github.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "typer>=0.29.2",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -17,7 +19,7 @@ dev = [
 ]
 
 [project.scripts]
-test-bots = "test_bots:main"
+test-bots = "test_bots.cli:app"
 
 [dependency-groups]
 dev = [
