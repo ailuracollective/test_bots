@@ -1,0 +1,236 @@
+---
+# Canonical issue and PR contract copied from ailuracollective/standards.
+# Source revision: 6df6771969b7375a2afe12de9fcdfc4c096df38.
+
+issue:
+  common:
+    - id: context
+      label: Context
+      description: Why the work exists, including evidence when relevant.
+      required: true
+    - id: goal
+      label: Goal
+      description: The observable outcome required.
+      required: true
+    - id: scope
+      label: Scope
+      description: What this issue includes.
+      required: true
+    - id: acceptance-criteria
+      label: Acceptance criteria
+      description: Observable conditions establishing completion.
+      required: true
+    - id: non-goals
+      label: Non-goals
+      description: Optional boundaries that prevent ambiguity.
+      required: false
+    - id: constraints
+      label: Constraints
+      description: Optional constraints materially limiting valid solutions.
+      required: false
+    - id: references
+      label: References
+      description: Authoritative links or paths; references are navigation hints.
+      required: false
+  types:
+    bug:
+      title_prefix: "fix: "
+      label: type/bug
+      description: Correct behavior that does not match expectations.
+      extra:
+        - id: observed-behavior
+          label: Observed behavior
+          description: What currently happens.
+          required: true
+        - id: expected-behavior
+          label: Expected behavior
+          description: What should happen instead.
+          required: true
+        - id: reproduction
+          label: Reproduction
+          description: The smallest reliable reproduction.
+          required: false
+    feature:
+      title_prefix: "feat: "
+      label: type/feature
+      description: Add a new capability or behavior.
+      extra: []
+    improvement:
+      title_prefix: "improvement: "
+      label: type/improvement
+      description: Improve behavior without correcting a bug.
+      extra: []
+    chore:
+      title_prefix: "chore: "
+      label: type/task
+      description: Technical maintenance without intended functional changes.
+      extra: []
+    test:
+      title_prefix: "test: "
+      label: type/task
+      description: Add or improve automated test coverage.
+      extra: []
+    docs:
+      title_prefix: "docs: "
+      label: type/documentation
+      description: Add or update project documentation.
+      extra: []
+    spike:
+      title_prefix: "spike: "
+      label: type/task
+      description: Investigate a question before implementation.
+      extra:
+        - id: question
+          label: Question
+          description: What needs to be answered.
+          required: true
+        - id: deliverable
+          label: Deliverable
+          description: What the investigation should produce.
+          required: true
+
+pr:
+  common:
+    - id: linked-issue
+      label: Linked issue
+      description: Direct reference to the governing issue.
+      required: true
+    - id: summary
+      label: Summary
+      description: What changed and why.
+      required: true
+    - id: changes
+      label: Changes
+      description: Relevant implementation changes.
+      required: true
+    - id: verification
+      label: Verification
+      description: Evidence satisfying acceptance criteria.
+      required: true
+    - id: risk-compatibility
+      label: Risk / compatibility
+      description: Optional material risk or compatibility impact.
+      required: false
+    - id: migration
+      label: Migration
+      description: Optional migration steps.
+      required: false
+  types:
+    breaking-change:
+      extra:
+        - id: what-breaks
+          label: What breaks and for whom
+          description: API, option, or behavior change and affected users.
+          required: true
+        - id: before-after
+          label: Before / after
+          description: Old and new contract side by side.
+          required: true
+        - id: migration-steps
+          label: Migration steps
+          description: Exact consumer migration steps.
+          required: true
+        - id: deprecation-plan
+          label: Deprecation plan
+          description: Timeline/removal version or removed outright.
+          required: true
+        - id: affected-versions
+          label: Affected version range
+          description: Versions carrying old behavior and removing it.
+          required: true
+    perf:
+      extra:
+        - id: measurements
+          label: Measurements
+          description: Before and after measurements with units.
+          required: true
+        - id: regression-threshold
+          label: Regression threshold
+          description: CI assertion and performance budget.
+          required: true
+        - id: environment
+          label: Environment
+          description: Hardware, OS, runtime, and relevant context.
+          required: true
+    ci:
+      extra:
+        - id: permissions
+          label: Permissions and secrets
+          description: Permissions, secrets, and blast radius.
+          required: true
+        - id: failure-mode
+          label: Failure mode
+          description: Behavior if workflow fails or is unavailable.
+          required: true
+    build:
+      extra:
+        - id: output-equivalence
+          label: Output equivalence
+          description: Evidence artifact correctness beyond a successful build.
+          required: true
+        - id: packaging
+          label: Packaging and version changes
+          description: Shipped artifacts and version changes.
+          required: true
+    feat:
+      extra: []
+    fix:
+      extra: []
+    docs:
+      extra: []
+    test:
+      extra: []
+    chore:
+      extra: []
+    refactor:
+      extra: []
+    revert:
+      extra: []
+    style:
+      extra: []
+
+taxonomy:
+  issue_to_pr_title:
+    feature: feat
+    bug: fix
+    improvement: feat
+    chore: chore
+    test: test
+    docs: docs
+    spike:
+  pr_title_to_branch:
+    feat: feat
+    fix: fix
+    chore: chore
+    docs: docs
+    style: style
+    refactor: refactor
+    perf: perf
+    test: test
+    build: build
+    ci: ci
+    revert: revert
+    breaking-change:
+  pr_title_to_label:
+    feat: type/feature
+    fix: type/bug
+    chore: type/task
+    docs: type/documentation
+    style: type/task
+    refactor: type/task
+    perf: type/task
+    test: type/task
+    build: type/task
+    ci: type/task
+    revert: type/task
+    breaking-change:
+
+agent_contract:
+  rules:
+    - Inspect authoritative repository instructions before implementation.
+    - State uncertainty rather than invent repository-specific facts.
+    - References are navigation hints unless modification is explicitly required.
+    - Do not infer that every referenced file must change.
+    - Do not infer omitted optional sections mean "none".
+    - Do not infer an implementation approach is required merely because it is an example.
+    - Do not reconstruct missing repository facts from conventions.
